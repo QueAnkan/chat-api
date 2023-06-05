@@ -1,0 +1,22 @@
+
+
+{
+	"users": [
+		{
+		"uname": "Anna",
+		"password": "password1",
+		"userid": 1
+		},
+		{},
+		{}
+	],
+
+	"chanels": [
+		{"chanelname": "grupp1"
+		}, 
+		{},
+		{}
+	],
+
+	"messages": []
+}
