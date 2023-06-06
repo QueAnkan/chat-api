@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+	font-family: "Roboto", sans-serif;
+	margin: 0;
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: #FAF6BE;
+	font-size: 125%;
+}
+body input, body button {
+	font-size: 100%;
+}
+body a {
+	color: #403BBB;
+}
+header {
+	display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid black;
+}
+header .user-status {
+	display: flex;
+	flex-direction: column;
+}
+h1 {
+	flex-grow: 1;
+	margin-top: 0;
+}
+main {
+	flex-grow: 1;
+	display: flex;
+}
+nav {
+	padding-right: 1em;
+	border-right: 1px solid gray;
+}
+nav ul {
+	list-style-type: none;
+	padding: 0;
+}
+nav li.selected {
+/* 	background-color: #F1EFBE; */
+	border: 1px solid darkgray;
+	font-weight: bold;
+}
+nav li {
+	padding: 0.3em;
+/* 	border: 1px solid #A49E44; */
+	transition: 0.4s all ease-out;
+	display: flex;
+	
+}
+nav li.locked a {
+	cursor: not-allowed;
+}
+nav li:hover {
+	background-color: #F1D67B;
+}
+nav li a {
+	display: block;
+}
+
+nav .unread {
+	font-family: monospace;
+	display: inline-block;
+/* 	justify-content: center;
+	align-items:center; */
+	font-size: 90%;
+	position: relative;
+	top: -1em;
+	background-color: red;
+	color: white;
+	border-radius: 50%;
+	padding: 0.2em;
+	min-width: 1.1em;
+	text-align: center;
+	font-weight: bold;
+}
+
+
+.chat-area {
+	padding-left: 1em;
+	
+}
+.chat-area > * {
+	box-shadow: 0 0em 0.4em silver;
+	border-radius: 1em;
+	padding: 1em;
+	margin: 1em 0;
+}
+
+.chat-area .chat-name {
+	text-decoration: underline;
+}
+
+.chat-area .heading {
+	border: none;
+/* 	box-shadow: 0 0.5em 0.3em darkgray; */
+	box-shadow: none;
+	border-radius: 0;
+	border-bottom: 1px solid black;
+	margin-bottom: 1.5em;
+}
+
+.history {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.chat-area :last-child {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.history > section {
+	border-bottom: 1px solid gray;
+	padding: 0.5em 1em;
+}
+.history > section > p {
+	margin: 0;
+}
+.align-right {
+	text-align: right;
+}

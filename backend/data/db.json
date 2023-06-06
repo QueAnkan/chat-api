@@ -6,17 +6,21 @@
 		"uname": "Anna",
 		"password": "password1",
 		"userid": 1
-		},
-		{},
-		{}
+		}
 	],
 
-	"chanels": [
-		{"chanelname": "grupp1"
-		}, 
-		{},
-		{}
-	],
+	"channels": [
+		{
+		"channelid": "grupp1",
+		"messages": [
+			{
+			"content":"Hej",
+			"time": 1500,
+			"user": 1
+			}	
+		]
+		}
+	]
 
-	"messages": []
+	
 }
