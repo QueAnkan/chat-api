@@ -1,26 +1,59 @@
-
-
 {
-	"users": [
-		{
-		"uname": "Anna",
-		"password": "password1",
-		"userid": 1
-		}
-	],
-
-	"channels": [
-		{
-		"channelid": "grupp1",
-		"messages": [
-			{
-			"content":"Hej",
-			"time": 1500,
-			"user": 1
-			}	
-		]
-		}
-	]
-
-	
+  "users": [
+    {
+      "uname": "PratgladPelle",
+      "password": "password1",
+      "userid": 1
+    },
+    {
+      "uname": "SocialaSara",
+      "password": "password2",
+      "userid": 2
+    },
+    {
+      "uname": "SocialaSara",
+      "password": "password3",
+      "userid": 3
+    }
+  ],
+  "channels": [
+    {
+      "chattid": 12,
+      "chattname": "Koda",
+      "public": true
+    },
+    {
+      "chattid": 13,
+      "chattname": "grupp1",
+      "public": false
+    },
+    {
+      "chattid": 14,
+      "chattname": "min grupp",
+      "public": "false"
+    },
+    {
+      "chattname": "min grupp3",
+      "public": false,
+      "chattid": 15
+    },
+    {
+      "chattname": "min grupp4",
+      "public": false,
+      "chattid": 16
+    },
+    {
+      "chattname": "chatt3",
+      "public": false,
+      "chattid": 17
+    }
+  ],
+  "messages": [
+    {
+      "chattid": 12,
+      "content": "Hej",
+      "timestamp": 1500,
+      "user": 1
+    }
+  ]
 }
