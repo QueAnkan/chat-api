@@ -20,7 +20,7 @@ async function generateUserId() {
 async function generateChannelId() {
 	console.log('Hämtar data: ? ', db)
 	await db.read()
-	const highestId = Number(db.data.channels.reduce((maxId, currentChannel) => { return Math.max(maxId, currentChannel.chattid)
+	const highestId = Number(db.data.channels.reduce((maxId, currentChannel) => { return Math.max(maxId, currentChannel.chatid)
 	}, 0))
 	return highestId + 1
 }

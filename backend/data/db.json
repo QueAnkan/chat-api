@@ -18,42 +18,59 @@
   ],
   "channels": [
     {
-      "chattid": 12,
-      "chattname": "Koda",
+      "chatid": 12,
+      "chatname": "Koda",
       "public": true
     },
     {
-      "chattid": 13,
-      "chattname": "grupp1",
+      "chatid": 13,
+      "chatname": "grupp1",
       "public": false
     },
     {
-      "chattid": 14,
-      "chattname": "min grupp",
+      "chatid": 14,
+      "chatname": "min grupp",
       "public": "false"
     },
     {
-      "chattname": "min grupp3",
+      "chatname": "min grupp3",
       "public": false,
-      "chattid": 15
+      "chatid": 15
     },
     {
-      "chattname": "min grupp4",
+      "chatname": "min grupp4",
       "public": false,
-      "chattid": 16
-    },
-    {
-      "chattname": "chatt3",
-      "public": false,
-      "chattid": 17
+      "chatid": 16
     }
   ],
   "messages": [
     {
-      "chattid": 12,
       "content": "Hej",
       "timestamp": 1500,
-      "user": 1
+      "chat": 12,
+      "sender": 1,
+      "reciever": 3
+    },
+    {
+      "content": "Hej",
+      "timestamp": 1700,
+      "chat": 12,
+      "sender": 2,
+      "reciever": 3
+    },
+    {
+      "content": "Hej",
+      "timestamp": 1700,
+      "chat": 13,
+      "sender": 2,
+      "reciever": 3
+    },
+    {
+      "content": "Hej",
+      "timestamp": 1500,
+      "chat": "chat",
+      "sender": 1,
+      "reciever": 3
     }
   ]
 }

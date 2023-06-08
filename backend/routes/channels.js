@@ -1,7 +1,7 @@
 import { getDb } from "../data/database.js"
 import express from 'express'
 import { generateChannelId } from "../utils/generateId.js"
-import { isValidChannel, isChannel } from "../utils/validators.js"
+import { isValidChannel, isChannel, isValidId } from "../utils/validators.js"
 
 const router = express.Router()
 const db = await getDb()
@@ -25,9 +25,9 @@ router.post('/', async (req, res) => {
 		await db.read()
 		if ( await isChannel(newChannel)) {
 			res.sendStatus(409)
-			console.log('chattname allready exists');
+			console.log('chatname allready exists');
 		}else {
-			newChannel.chattid =  await generateChannelId()
+			newChannel.chatid =  await generateChannelId()
 			db.data.channels.push(newChannel)
 			await db.write()
 			res.send(newChannel)
@@ -35,36 +35,41 @@ router.post('/', async (req, res) => {
 		}
 	}else {
 		res.sendStatus(400)
-		console.log('post invalid');
+		console.log('Post invalid');
 	}			
 })
 
 
 
 
-/* 
-router.put()
+
+// router.put()
 
 
 
-router.delete('/', async (req, res) => {
-	let id = Number(req.params.id)
+router.delete('/:chatid', async (req, res) => {
+
+	if(!isValidId(req.params.chatid)){
+		res.sendStatus(400)
+		console.log('Invalid value, chatid must be a number');
+		return
+	}
+
+	let chatId = Number(req.params.chatid)
 	await db.read()
-	let unwantedChannel = db.data.channels.find(channel => channel.id === id)
+
+	let unwantedChannel = db.data.channels.find(channel => channel.chatid === chatId)
+		
 	if (!unwantedChannel){
 		res.sendStatus(404)
 		console.log("Channel not found");
 		return
 	}
-	db.data.channels.filter(channel => channel.id !== id)
+	db.data.channels = db.data.channels.filter(channel => channel.chatid !== chatId)
 	await db.write()
 	res.sendStatus(200)
 	console.log('Channel deleted');
 
-
-}) */
-
-
-
+})
 
 export default router

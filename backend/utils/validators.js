@@ -1,20 +1,21 @@
 import { getDb } from "../data/database.js"
 
-
 const db = await getDb()
+
+// kontrollerar att channel har korrekta värden vid POST
 
 function isValidChannel (c) {
 	if ((typeof c) !== 'object' || c === null) {
 		return false 
 	}
 
-	let chattnameIsValid = (typeof c.chattname) === 'string'
-	chattnameIsValid = chattnameIsValid && c.chattname !==''
+	let chatnameIsValid = (typeof c.chatname) === 'string'
+	chatnameIsValid = chatnameIsValid && c.chatname !==''
 
 	let publicIsValid  = (typeof c.public) === 'boolean'
 	publicIsValid = publicIsValid && c.public !==''
 
-	if (!chattnameIsValid || !publicIsValid){
+	if (!chatnameIsValid || !publicIsValid){
 		return false
 	}
 
@@ -22,11 +23,11 @@ function isValidChannel (c) {
 
 }
 
-
+// Kontrollerar att det inte redan finns en kanal med det namn som angetts
 
 async function isChannel(c){
 	await db.read()
-	let channelExists = db.data.channels.some(channel => channel.chattname === c.chattname)
+	let channelExists = db.data.channels.some(channel => channel.chatname === c.chatname)
 
 	if(channelExists) {
 		return true
@@ -35,4 +36,14 @@ async function isChannel(c){
 }
 
 
-export {isValidChannel, isChannel}
+
+ function isValidId(id) {
+	let maybeId = Number(id) 
+	if(isNaN(maybeId) ) {
+		return false 
+	}
+	return maybeId >= 0  
+} 
+
+
+export {isValidChannel, isChannel, isValidId}
