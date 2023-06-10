@@ -23,7 +23,7 @@ function isValidChannel (c) {
 
 }
 
-// Kontrollerar att det inte redan finns en kanal med det namn som angetts
+// Kontrollerar om det finns en kanal med det namn som angetts
 
 async function isChannel(c){
 	await db.read()
@@ -35,7 +35,39 @@ async function isChannel(c){
 	return false
 }
 
+// kontrollera att message har korrekta värden vid POST
 
+function isValidMessage (m) {
+	if ((typeof m) !== 'object' || m === null) {
+		return false
+	}
+
+	let contentIsValid = (typeof m.content) === 'string' 
+
+	let possibleChat = (typeof m.chat) === 'number' || (typeof m.reciever) === 'number'
+	
+
+	if(!possibleChat || !contentIsValid) {
+		return false
+	}
+	return true
+	
+}
+
+// Kontrollerar om det finns en användare med det id som angetts
+
+async function isUser(u) {
+	await db.read()
+	let userExists = db.data.users.some(user => user.userId === u.userId)
+
+	if (userExists){
+		return true
+	}
+	return false
+}
+
+
+// kontrollera id på data-objekt för att se att det är giltigt
 
  function isValidId(id) {
 	let maybeId = Number(id) 
@@ -46,4 +78,4 @@ async function isChannel(c){
 } 
 
 
-export {isValidChannel, isChannel, isValidId}
+export {isValidChannel, isChannel, isValidId, isValidMessage, isUser}

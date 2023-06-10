@@ -26,5 +26,13 @@ async function generateChannelId() {
 }
 
 
+async function generateMessageId() {
+	console.log('Hämtar data: ? ', db)
+	await db.read()
+	const highestId = Number(db.data.messages.reduce((maxId, currentMessage) => { return Math.max(maxId, currentMessage.messageId)
+	}, 0))
+	return highestId + 1
+}
 
- export { generateUserId, generateChannelId }
+
+ export { generateUserId, generateChannelId, generateMessageId }

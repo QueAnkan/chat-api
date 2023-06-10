@@ -3,17 +3,17 @@
     {
       "uname": "PratgladPelle",
       "password": "password1",
-      "userid": 1
+      "userId": 1
     },
     {
       "uname": "SocialaSara",
       "password": "password2",
-      "userid": 2
+      "userId": 2
     },
     {
       "uname": "SocialaSara",
       "password": "password3",
-      "userid": 3
+      "userId": 3
     }
   ],
   "channels": [
@@ -30,7 +30,7 @@
     {
       "chatid": 14,
       "chatname": "min grupp",
-      "public": "false"
+      "public": false
     },
     {
       "chatname": "min grupp3",
@@ -40,7 +40,7 @@
     {
       "chatname": "min grupp4",
       "public": false,
-      "chatid": 16
+      "chatid": 160
     }
   ],
   "messages": [
@@ -49,28 +49,53 @@
       "timestamp": 1500,
       "chat": 12,
       "sender": 1,
-      "reciever": 3
+      "reciever": 3,
+      "messageId": 100
     },
     {
       "content": "Hej",
       "timestamp": 1700,
       "chat": 12,
       "sender": 2,
-      "reciever": 3
+      "reciever": 3,
+      "messageId": 101
     },
     {
       "content": "Hej",
       "timestamp": 1700,
       "chat": 13,
       "sender": 2,
-      "reciever": 3
+      "reciever": 3,
+      "messageId": 103
+    },
+    {
+      "content": "Hejsan",
+      "chat": 12,
+      "sender": 1,
+      "timestamp": 1686228766591,
+      "messageId": 104
     },
     {
       "content": "Hej",
-      "timestamp": 1500,
-      "chat": "chat",
+      "timestamp": 1686233869689,
       "sender": 1,
-      "reciever": 3
+      "reciever": 2,
+      "messageId": 105
+    },
+    {
+      "content": "Hejsan",
+      "chat": 12,
+      "sender": 1,
+      "timestamp": 1686234002728,
+      "messageId": 106
+    },
+    {
+      "content": "Hej",
+      "timestamp": 1686235939862,
+      "sender": 1,
+      "reciever": 2,
+      "messageId": 109
     }
+   
   ]
 }

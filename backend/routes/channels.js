@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 // chanel post: skickar upp ny kanal med genererat id
 router.post('/', async (req, res) => {
 	
-	let newChannel = req.body
+	const newChannel = req.body
 	if (isValidChannel(newChannel)) {
 		await db.read()
 		if ( await isChannel(newChannel)) {
