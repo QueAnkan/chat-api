@@ -1,14 +1,13 @@
 import express from 'express'
 import { getDb } from '../data/database.js'
-import {isValidId, isValidMessage } from '../utils/validators.js'
+import { isValidChange, isValidMessage } from '../utils/messageValidators.js'
+import {isValidId} from '../utils/validators.js'
 import generateTimestamp from '../utils/generateTimestamp.js'
 import { generateMessageId } from '../utils/generateId.js'
 
 const router = express.Router()
 const db = await getDb()
 
-
-// validering för om inloggad eller ej
 
 // Hämta meddelanden från en specifik kanal eller användare 
 router.get('/', async (req, res) => {
@@ -50,7 +49,6 @@ await db.read()
 	res.send(chatMessages)
 	console.log('Messages recieved');
 })
-
 
 
 // lägga till meddelande i kanal eller DM
@@ -98,8 +96,45 @@ router.post('/', async (req,res) => {
 	
 })
 
+// För att ändra i meddelanden, allt utom messageId kan ändras
+ router.put('/:messageid', async (req, res) => {
+	
+	if(!isValidId(req.params.messageid)){
+		res.sendStatus(400)
+		console.log('Invalid value, messageid must be a number');
+		return
+	}
+	let messageId = Number(req.params.messageid) 
 
-// router.put()
+	if(!isValidChange(req.body)) {
+		res.sendStatus(400)
+		console.log('invalid value');
+		return
+	}
+
+	await db.read()
+	let oldMessageIndex = db.data.messages.findIndex(message => message.messageId === messageId)
+	console.log(db.data.messages)
+	console.log(oldMessageIndex);
+
+	if(oldMessageIndex === -1) {
+		res.sendStatus(404)
+		console.log('Could not find the message id to change the message...');
+		return
+	}
+
+	let editMessage = { ...db.data.messages[oldMessageIndex]}
+	editMessage = {
+		...editMessage,
+		...req.body,
+		messageId:messageId,
+	}
+	
+	db.data.messages[oldMessageIndex] = editMessage
+	await db.write()
+	res.sendStatus (200)
+	console.log('Message have been changed');
+ })
 
 // ta bort meddelande
 router.delete('/:messageid', async (req, res) => {
@@ -123,7 +158,7 @@ router.delete('/:messageid', async (req, res) => {
 	db.data.messages = db.data.messages.filter(message => message.messageId !== messageId)
 	await db.write()
 	res.sendStatus(200)
-	console.log('Message deleted');
+	console.log('Message deleted'); 
 
 })
 
