@@ -7,10 +7,7 @@ const router = express.Router()
 const db = await getDb()
 
 
-
-
 //channel get: returnerar alla kanaler
-
 router.get('/', async (req, res) => {
 	await db.read()
 	let channels = db.data.channels
@@ -19,11 +16,9 @@ router.get('/', async (req, res) => {
 
 
 // Channel get:id hämta en kanal med hjälp av id
-
 router.get('/:chatid', async (req, res) => {
 
 	let chatid = Number(req.params.chatid)
-	console.log('chatid', chatid);
 
 	if(!isValidId(req.params.chatid)) {
 		res.sendStatus(400)
@@ -31,7 +26,6 @@ router.get('/:chatid', async (req, res) => {
 		return
 	}
  
-	
 	await db.read()
 	
 	let possibleChannel = db.data.channels.find( channel => channel.chatid === chatid)
@@ -65,12 +59,6 @@ router.post('/', async (req, res) => {
 		console.log('Post invalid');
 	}			
 })
-
-
-
-
-
-// router.put()
 
 
 // ta bort en befintlig kanal med hjälp av id

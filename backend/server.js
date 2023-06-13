@@ -1,16 +1,19 @@
 // import
 import  express  from "express";
 import cors from 'cors'
-// import dotenv from 'dotenv'
-// import jwt from 'jsonwebtoken'
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 import channelsRouter from './routes/channels.js'
 import usersRouter from './routes/users.js'
 import messagesRouter from './routes/messages.js'
+import loginRouter from './routes/login.js'
 
 // konfigurera servern
 
 const app = express()
-const port = 8008
+const port = process.env.PORT || 3030
+
 
 // middleware
 app.use( cors() )
@@ -24,22 +27,13 @@ app.use('/api', express.json())
 
 //// routes ////
 
-
-
 app.use('/api/channels', channelsRouter)
 
 app.use('/api/messages', messagesRouter)
 
-// private get: returnerar  meddelanden(objekt med uname, medelandetext och tid) om man är behörig (inloggad)
-
-//  private post: skickar  upp data object med användarnamn, input-värde(text) och tidsstämpel om behörig (inloggad)
-
-
-//  users get hämta alla användare
-
 app.use('/api/users', usersRouter)
 
-//login post: skickar upp uname och password
+app.use('/api/login', loginRouter)
 
 // secret get: autentisering
 

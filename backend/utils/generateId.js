@@ -6,7 +6,7 @@ async function generateUserId() {
 	 console.log('Hämtar data: ? ', db.data)
 	await db.read()
 	const highestId = Number(db.data.users.reduce((maxId, currentUser) => {
-		return Math.max(maxId, currentUser.id) 
+		return Math.max(maxId, currentUser.userid) 
 	}, 0))
 
 	console.log('Generate: ', highestId)
@@ -14,8 +14,6 @@ async function generateUserId() {
 	return highestId + 1 
 	
 }
-
-
 
 async function generateChannelId() {
 	console.log('Hämtar data: ? ', db)
@@ -29,7 +27,7 @@ async function generateChannelId() {
 async function generateMessageId() {
 	console.log('Hämtar data: ? ', db)
 	await db.read()
-	const highestId = Number(db.data.messages.reduce((maxId, currentMessage) => { return Math.max(maxId, currentMessage.messageId)
+	const highestId = Number(db.data.messages.reduce((maxId, currentMessage) => { return Math.max(maxId, currentMessage.messageid)
 	}, 0))
 	return highestId + 1
 }

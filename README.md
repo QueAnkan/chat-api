@@ -3,16 +3,21 @@
 Detta API används för att bygga en chat där man kan skicka medelanden till varandra, både i gemensamma kanaler och via DM. Man kan ha öppna kanaler och slutna kanaler som kräver inloggning.
 
 ###
-| Method | URL | Description |
-|--------|---|-------------|
-| GET | api/messages | Används för att hämta meddelanden. Ange med hjälpa av query-string om det ska hämtas till en kanal(chat) eller ett DM(sender) samt kanalen eller avsändarens id ("chat-value" respektive "sender-value") enligt logiken: api/messages/?filterBy=chat&value=chatValue där chatValue ersätts med din kanals id. Body innerhåller { "content" , "chat" , "sender" ,"timestamp" , messageId}|
-| POST | api/messages | Används för att skicka meddelanden, ange  {"content": "sender": "chat" } i body för meddelanden som ska skickas i kanal och {"content" , "sender" , "reciever" } i body för medelanden som ska skickas i DM. "timestamp" och "messageId" genereras automatiskt vid POST |
-| PUT | api/messages/messageId | För att ändra i ett meddelande, skicka med de värden som ska ändras i body. MessageId måste alltid skickas med i body {"messageId"}. Alla värden utom "messageId" kan ändras.|
- |DELETE | api/messages/messageId | För att ta bort ett meddelande, ange {"messageId"} i body. |
-| GET | api/channels | för att hämta samtliga kanaler. Body innehåller {"chatname" , "public" , "chatid"} |
-| POST | api/channels | För att skapa en ny kanal. Ange {"chatname" , "public"} i body. Chatid skapas automatiskt vid POST. |
-| DELETE | api/chatid| För att ta bort en befintlig kanal. |
-| GET |api/users| För att hämta samtliga användare. Body innehåller {"uname" , "password" , "userid"} |
-| POST |api/login | För att logga in som användare |
+| Method | URL/(URLparams) | Querystring | Body |Description |
+|-----|---|----|---|----|
+| GET | api/messages| "filterby", "value" | | Hämta meddelanden. Ange med hjälpa av query-string om det ska hämtas med värde för kanal(chat) eller DM(sender), ange kanalen eller avsändarens id ("chat-value" respektive "sender-value") enligt logiken: api/messages/?filterby=chat&value=chatValue där chatValue ersätts med din kanals id. Returnerar { "content" , "chat" , "sender" ,"timestamp" , messageid}|
+| POST | api/messages | | {"content": "sender": "chat" } eller {"content" , "sender" , "reciever" } | Skicka meddelanden, ange i body om meddelanden ska skickas i kanal eller i DM. "timestamp" och "messageid" genereras automatiskt vid POST |
+| PUT |  api/messages/messageid| |{"messageid"}| Ändra i ett meddelande, skicka med de värden som ska ändras i body. messageid måste alltid skickas med i body, alla värden utom "messageid" kan ändras.|
+ |DELETE | api/messages/messageid | |{"messageid"}  | Ta bort ett meddelande. |
+| GET | api/channels | | | Hämta samtliga kanaler. Returnerar {"chatname" , "public" , "chatid"} |
+| POST | api/channels | | {"chatname" , "public"} | Skapa en ny kanal.  Chatid skapas automatiskt vid POST. |
+| DELETE | api/channels/chatid| | {chatId} | Ta bort en befintlig kanal. |
+| GET | api/users | | | Hämta samtliga användare. Returnerar {"uname" , "password" , "userid"} |
+|GET | api/users/userid | | {"userid"} | Hämta en användare med hjälp av id.|
+| POST | api/users | | { "uname", "password", userid"} | Lägga till ny användare. |
+| PUT | api/users/users/userid | | {"userid"}| Ändra användaruppgifter. Lägg till "uname" eller "password" i body beroende på vad som ska ändras. |
+| DELETE | api/users/userid | | {"userid"} | Ta bort en användare. |
+| POST | api/login | | {"uname","password" } | Logga in som användare. |
+
 ----------------------------------------
 

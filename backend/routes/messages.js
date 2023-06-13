@@ -1,9 +1,9 @@
 import express from 'express'
 import { getDb } from '../data/database.js'
-import { isValidChange, isValidMessage } from '../utils/messageValidators.js'
+import { isValidMessageChange, isValidMessage } from '../utils/messageValidators.js'
 import {isValidId} from '../utils/validators.js'
 import generateTimestamp from '../utils/generateTimestamp.js'
-import { generateMessageId } from '../utils/generateId.js'
+import { generatemessageid } from '../utils/generateId.js'
 
 const router = express.Router()
 const db = await getDb()
@@ -11,43 +11,42 @@ const db = await getDb()
 
 // Hämta meddelanden från en specifik kanal eller användare 
 router.get('/', async (req, res) => {
-const {filterBy, value} = req.query
-const valueAsNumber = Number(value)
-await db.read()
+	const {filterby, value} = req.query
+	const valueAsNumber = Number(value)
+	await db.read()
 
-	if( !valueAsNumber) {
-		res.sendStatus(400)
-		console.log('Invalid value, chat or sender value must be a number')
-		return
-	}
-
-	if(filterBy !== 'chat' && filterBy !== 'sender'){
-		res.sendStatus(400)
-		console.log('Invalid query string, must be "chat" or "sender" ');
-	}
-	
-	function filterMessages(messages) {
-		if (filterBy === 'chat') {
-			if (messages.chat === valueAsNumber ){
-		  	return true;
-			} 
-		}
-		else if (filterBy === 'sender') {
-			if (messages.sender === valueAsNumber){
-				return true
-			}
-		}
-		return false;
-	} 
-	let chatMessages = db.data.messages.filter(filterMessages);
-  		console.log(chatMessages);
- 		if(chatMessages.length === 0) {
-			res.sendStatus(404)
-			console.log('Chanel or sender does not exist');
+		if( !valueAsNumber) {
+			res.sendStatus(400)
+			console.log('Invalid value, chat or sender value must be a number')
 			return
+		}
+
+		if(filterby !== 'chat' && filterby !== 'sender'){
+			res.sendStatus(400)
+			console.log('Invalid query string, must be "chat" or "sender" ');
+		}
+		
+		function filterMessages(messages) {
+			if (filterby === 'chat') {
+				if (messages.chat === valueAsNumber ){
+				return true;
+				} 
+			}
+			else if (filterby === 'sender') {
+				if (messages.sender === valueAsNumber){
+					return true
+				}
+			}
+			return false;
 		} 
-	res.send(chatMessages)
-	console.log('Messages recieved');
+		let chatMessages = db.data.messages.filter(filterMessages);
+			if(chatMessages.length === 0) {
+				res.sendStatus(404)
+				console.log('Chanel or sender does not exist');
+				return
+			} 
+		res.send(chatMessages)
+		console.log('Messages recieved');
 })
 
 
@@ -67,8 +66,7 @@ router.post('/', async (req,res) => {
 
 	if(DM){
 		let userExists = db.data.users.map(user => user.userId)
-		console.log(DM, userExists);
-			
+		
 		if (!userExists.includes(DM)){
 			res.sendStatus(400)
 			console.log('Reciever does not exists');
@@ -87,7 +85,7 @@ router.post('/', async (req,res) => {
 	else{
 		await db.read()
 		newMessage.timestamp = await generateTimestamp()
-		newMessage.messageId = await generateMessageId()
+		newMessage.messageid = await generatemessageid()
 		db.data.messages.push(newMessage)
 		await db.write()
 		res.send(newMessage)
@@ -96,7 +94,8 @@ router.post('/', async (req,res) => {
 	
 })
 
-// För att ändra i meddelanden, allt utom messageId kan ändras
+
+// För att ändra i meddelanden, allt utom messageid kan ändras
  router.put('/:messageid', async (req, res) => {
 	
 	if(!isValidId(req.params.messageid)){
@@ -104,19 +103,18 @@ router.post('/', async (req,res) => {
 		console.log('Invalid value, messageid must be a number');
 		return
 	}
-	let messageId = Number(req.params.messageid) 
 
-	if(!isValidChange(req.body)) {
+	let messageid = Number(req.params.messageid) 
+
+	if(!isValidMessageChange(req.body)) {
 		res.sendStatus(400)
 		console.log('invalid value');
 		return
 	}
 
 	await db.read()
-	let oldMessageIndex = db.data.messages.findIndex(message => message.messageId === messageId)
-	console.log(db.data.messages)
-	console.log(oldMessageIndex);
-
+	let oldMessageIndex = db.data.messages.findIndex(message => message.messageid === messageid)
+	
 	if(oldMessageIndex === -1) {
 		res.sendStatus(404)
 		console.log('Could not find the message id to change the message...');
@@ -127,7 +125,7 @@ router.post('/', async (req,res) => {
 	editMessage = {
 		...editMessage,
 		...req.body,
-		messageId:messageId,
+		messageid:messageid,
 	}
 	
 	db.data.messages[oldMessageIndex] = editMessage
@@ -136,6 +134,7 @@ router.post('/', async (req,res) => {
 	console.log('Message have been changed');
  })
 
+ 
 // ta bort meddelande
 router.delete('/:messageid', async (req, res) => {
 
@@ -145,17 +144,17 @@ router.delete('/:messageid', async (req, res) => {
 		return
 	}
 
-	let messageId = Number(req.params.messageid)
+	let messageid = Number(req.params.messageid)
 	await db.read()
 
-	let unwantedMessage = db.data.messages.find(message => message.messageId === messageId)
+	let unwantedMessage = db.data.messages.find(message => message.messageid === messageid)
 
 	if (!unwantedMessage){
 		res.sendStatus(404)
 		console.log("Message not found");
 		return
 	}
-	db.data.messages = db.data.messages.filter(message => message.messageId !== messageId)
+	db.data.messages = db.data.messages.filter(message => message.messageid !== messageid)
 	await db.write()
 	res.sendStatus(200)
 	console.log('Message deleted'); 

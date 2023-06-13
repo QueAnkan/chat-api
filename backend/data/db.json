@@ -3,34 +3,40 @@
     {
       "uname": "PratgladPelle",
       "password": "password1",
-      "userId": 1
+      "userid": 1
     },
     {
-      "uname": "SocialaSara",
-      "password": "password2",
-      "userId": 2
+      "uname": "SocialaSofie",
+      "password": "password35",
+      "userid": 2
     },
     {
-      "uname": "SocialaSara",
+      "uname": "TrevligaTommy",
       "password": "password3",
-      "userId": 3
+      "userid": 3
+    },
+    {
+      "uname": "VänligaVera",
+      "password": "password4",
+      "userid": "userid",
+      "id": 4
     }
   ],
   "channels": [
     {
-      "chatid": 12,
       "chatname": "Koda",
-      "public": true
+      "public": true,
+      "chatid": 12
     },
     {
-      "chatid": 13,
       "chatname": "grupp1",
-      "public": false
+      "public": false,
+      "chatid": 13
     },
     {
-      "chatid": 14,
       "chatname": "min grupp",
-      "public": false
+      "public": false,
+      "chatid": 14
     },
     {
       "chatname": "min grupp3",
@@ -45,57 +51,32 @@
   ],
   "messages": [
     {
-      "content": "Hej",
-      "timestamp": 1500,
-      "chat": 12,
-      "sender": 1,
-      "reciever": 3,
-      "messageId": 100
-    },
-    {
-      "content": "Hej",
-      "timestamp": 1700,
-      "chat": 12,
-      "sender": 2,
-      "reciever": 3,
-      "messageId": 101
-    },
-    {
-      "content": "Hej",
-      "timestamp": 1700,
-      "chat": 13,
-      "sender": 2,
-      "reciever": 3,
-      "messageId": 103
-    },
-    {
-      "content": "Hejsan",
+      "content": "God middag!",
       "chat": 12,
       "sender": 1,
       "timestamp": 1686228766591,
-      "messageId": 104
+      "messageid": 104
     },
     {
       "content": "Hej",
       "timestamp": 1686233869689,
       "sender": 1,
       "reciever": 2,
-      "messageId": 105
+      "messageid": 105
     },
     {
       "content": "Hejsan",
       "chat": 12,
       "sender": 1,
       "timestamp": 1686234002728,
-      "messageId": 106
+      "messageid": 106
     },
     {
       "content": "Hej",
       "timestamp": 1686235939862,
       "sender": 1,
       "reciever": 2,
-      "messageId": 109
+      "messageid": 109
     }
-   
   ]
 }

@@ -13,16 +13,15 @@ const secret = process.env.SECRET
 
 
 //login post: skickar upp uname och password
-
 router.post('/', async (req, res) => {
 
 
 	if (!req.body || !req.body.uname || !req.body.password){
 		res.sendStatus(400)
+		console.log('Post invalid');
 		return
 	}
 	const { uname, password} = req.body
-console.log('req.body: uname, password', uname, password);
 
 	await db.read()
 
@@ -42,7 +41,7 @@ console.log('req.body: uname, password', uname, password);
 
 	const hour = 60 * 60
 	const payload = { userId : match.id}
-	const options = {expiresIn: hour}
+	const options = {expiresIn: hour * 3}
 	let token = jwt.sign(payload, secret, options)
 	let tokenPackage = {token: token}
 	res.send(tokenPackage)
