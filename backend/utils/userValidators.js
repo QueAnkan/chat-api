@@ -14,21 +14,20 @@ async function isUser(u) {
 	return false
 }
 
+// Kontrollera om användarnamnet är upptaget
+async function userExists(u) {
+	await db.read()
+	let userExists = db.data.users.some(user => user.uname === u.uname)
 
-//Kontrollerar om användarnamn och lösenord redan finns
-async function userExists(users, uname, password) {
-	for (let i = 0; i < users.length; i++) {
-		if(users[i].uname === uname || users[i].password === password) {
-			return true;
-		}
+	if (userExists){
+		return true
 	}
 	return false
-
 }
 
 
 // Kontrollera att user-objekt är korrekt och innehåller både användare och lösenord
-function isValidUser (u) {
+ function isValidUser (u) {
 	if ((typeof u) !== 'object' || u === null) {
 		return false
 	}

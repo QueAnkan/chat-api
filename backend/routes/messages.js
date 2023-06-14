@@ -3,7 +3,7 @@ import { getDb } from '../data/database.js'
 import { isValidMessageChange, isValidMessage } from '../utils/messageValidators.js'
 import {isValidId} from '../utils/validators.js'
 import generateTimestamp from '../utils/generateTimestamp.js'
-import { generatemessageid } from '../utils/generateId.js'
+import { generateMessageId } from '../utils/generateId.js'
 
 const router = express.Router()
 const db = await getDb()
@@ -24,6 +24,7 @@ router.get('/', async (req, res) => {
 		if(filterby !== 'chat' && filterby !== 'sender'){
 			res.sendStatus(400)
 			console.log('Invalid query string, must be "chat" or "sender" ');
+			return
 		}
 		
 		function filterMessages(messages) {
@@ -42,7 +43,7 @@ router.get('/', async (req, res) => {
 		let chatMessages = db.data.messages.filter(filterMessages);
 			if(chatMessages.length === 0) {
 				res.sendStatus(404)
-				console.log('Chanel or sender does not exist');
+				console.log('Channel or sender does not exist');
 				return
 			} 
 		res.send(chatMessages)
@@ -61,37 +62,46 @@ router.post('/', async (req,res) => {
 		await db.read()
 		res.sendStatus(400)
 		console.log('Post invalid');
+		return
 	}	
 	await db.read()
 
 	if(DM){
-		let userExists = db.data.users.map(user => user.userId)
-		
+		let userExists = db.data.users.map(user => user.userid)
 		if (!userExists.includes(DM)){
 			res.sendStatus(400)
 			console.log('Reciever does not exists');
 			return
+		}else{
+			await db.read()
+			newMessage.timestamp = await generateTimestamp()
+			newMessage.messageid = await generateMessageId()
+			db.data.messages.push(newMessage)
+			await db.write()
+			res.send(newMessage)
+			console.log('Post valid');
 		}
 	}
 	if(channel){
 		let channelExist = db.data.channels.map(channel => channel.chatid)
-
+console.log('channelExist', channelExist
+);
+console.log('channel', channel);
 		if (!channelExist.includes(channel)) {
 			res.sendStatus(400)
 			console.log('Channel does not exist');
 			return
 		}
-	}
-	else{
-		await db.read()
-		newMessage.timestamp = await generateTimestamp()
-		newMessage.messageid = await generatemessageid()
-		db.data.messages.push(newMessage)
-		await db.write()
-		res.send(newMessage)
-		console.log('Post valid');
-	}
-	
+		else{
+			await db.read()
+			newMessage.timestamp = await generateTimestamp()
+			newMessage.messageid = await generateMessageId()
+			db.data.messages.push(newMessage)
+			await db.write()
+			res.send(newMessage)
+			console.log('Post valid');
+		}
+	}	
 })
 
 
@@ -114,10 +124,11 @@ router.post('/', async (req,res) => {
 
 	await db.read()
 	let oldMessageIndex = db.data.messages.findIndex(message => message.messageid === messageid)
+
 	
 	if(oldMessageIndex === -1) {
 		res.sendStatus(404)
-		console.log('Could not find the message id to change the message...');
+		console.log('Message not found');
 		return
 	}
 

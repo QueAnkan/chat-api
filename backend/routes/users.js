@@ -10,7 +10,6 @@ const db = await getDb()
 
 // Hämta alla användare
 router.get('/', async (req, res) => {
-	console.log('GET/users:', db);
 	await db.read()
 	res.send(db.data.users)
 })
@@ -23,7 +22,7 @@ router.get('/:userid', async (req, res) => {
 
 	if(!isValidId(req.params.userid)) {
 		res.sendStatus(400)
-		console.log('Incorrect value, userid must be a number...');
+		console.log('Incorrect value, userid must be a number.');
 		return
 	}
 	
@@ -32,7 +31,7 @@ router.get('/:userid', async (req, res) => {
 	let possibleUser = db.data.users.find(user => user.userid === userid)
 	if (!possibleUser) {
 		res.sendStatus(404)
-		console.log('User not found...');
+		console.log('User not found.');
 		return
 	}
 	res.send(possibleUser)
@@ -41,15 +40,16 @@ router.get('/:userid', async (req, res) => {
 
 // Lägg till användare
 router.post('/', async(req, res) => {
-	const possibleUser = req.body
 
+	const possibleUser = req.body
+console.log('possibleUser', possibleUser);
 	if(isValidUser(possibleUser)){
 		await db.read()
-		if ( await userExists(db.data.users,possibleUser.uname, possibleUser.password)) {
+		if ( await userExists( possibleUser)) {
 			res.sendStatus(409) 
 			console.log('Användaren finns redan')
 		}else{
-			possibleUser.id = await generateUserId();
+			possibleUser.userid = await generateUserId();
 			db.data.users.push(possibleUser);
 			await db.write();
 			res.send(possibleUser);

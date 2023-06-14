@@ -6,20 +6,20 @@
       "userid": 1
     },
     {
-      "uname": "SocialaSofie",
-      "password": "password35",
-      "userid": 2
-    },
-    {
       "uname": "TrevligaTommy",
       "password": "password3",
       "userid": 3
     },
     {
       "uname": "VänligaVera",
-      "password": "password4",
-      "userid": "userid",
-      "id": 4
+      "password": "password35",
+      "userid": 4,
+      "userId": "userId"
+    },
+    {
+      "uname": "SocialaSara",
+      "password": "password2",
+      "userid": 5
     }
   ],
   "channels": [
@@ -46,7 +46,17 @@
     {
       "chatname": "min grupp4",
       "public": false,
-      "chatid": 160
+      "chatid": 16
+    },
+    {
+      "chatname": "chatt68",
+      "public": false,
+      "chatid": 18
+    },
+    {
+      "chatname": "chatt3",
+      "public": false,
+      "chatid": 19
     }
   ],
   "messages": [
@@ -77,6 +87,48 @@
       "sender": 1,
       "reciever": 2,
       "messageid": 109
+    },
+    {
+      "content": "Hej",
+      "sender": 3,
+      "reciever": 1,
+      "timestamp": 1686730318734,
+      "messageid": 110
+    },
+    {
+      "content": "Hejsan",
+      "sender": 3,
+      "reciever": 1,
+      "timestamp": 1686730491057,
+      "messageid": 111
+    },
+    {
+      "content": "Hejsan",
+      "sender": 3,
+      "reciever": 1,
+      "timestamp": 1686730700932,
+      "messageid": 113
+    },
+    {
+      "content": "Hejsan",
+      "sender": 3,
+      "reciever": 1,
+      "timestamp": 1686731060977,
+      "messageid": 114
+    },
+    {
+      "content": "Hejsan",
+      "sender": 3,
+      "reciever": 1,
+      "timestamp": 1686731344280,
+      "messageid": 115
+    },
+    {
+      "content": "Hejsan",
+      "chat": 12,
+      "sender": 1,
+      "timestamp": 1686731980020,
+      "messageid": 116
     }
   ]
 }

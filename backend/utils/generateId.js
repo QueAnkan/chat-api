@@ -3,7 +3,6 @@ import { getDb } from "../data/database.js"
  const db = await getDb()
 
 async function generateUserId() {
-	 console.log('Hämtar data: ? ', db.data)
 	await db.read()
 	const highestId = Number(db.data.users.reduce((maxId, currentUser) => {
 		return Math.max(maxId, currentUser.userid) 
@@ -25,7 +24,6 @@ async function generateChannelId() {
 
 
 async function generateMessageId() {
-	console.log('Hämtar data: ? ', db)
 	await db.read()
 	const highestId = Number(db.data.messages.reduce((maxId, currentMessage) => { return Math.max(maxId, currentMessage.messageid)
 	}, 0))
