@@ -10,7 +10,10 @@ async function getDb() {
 	const file = join(__dirname, 'db.json')
 	const adapter = new JSONFile(file)
 	const db = new Low(adapter, {})
+	await db.read()
+	// console.log(db.data);
 	return db
+	
 }
 
 export { getDb }
