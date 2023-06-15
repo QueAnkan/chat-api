@@ -129,6 +129,13 @@
       "sender": 1,
       "timestamp": 1686731980020,
       "messageid": 116
+    },
+    {
+      "content": "Hejsan",
+      "chat": 12,
+      "sender": 1,
+      "timestamp": 1686822577916,
+      "messageid": 118
     }
   ]
 }

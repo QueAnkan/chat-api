@@ -9,7 +9,7 @@ const router = express.Router()
 const db = await getDb()
 
 
-const secret = process.env.SECRET 
+const secret = process.env.SECRET || 'M116610'
 
 
 //login post: skickar upp uname och password
@@ -26,15 +26,14 @@ router.post('/', async (req, res) => {
 	await db.read()
 
 	let match = db.data.users.find(user => user.uname === uname)
-	console.log('match',match);
 	if (!match) {
-		console.log('Fel användarnamn');
+		console.log('Wrong username');
 		res.sendStatus(401)
 		return
 	} 
 
 	if (match.password !==password) {
-		console.log('Fel lösenord');
+		console.log('Wrong password');
 		res.sendStatus(401)
 		return
 	}
