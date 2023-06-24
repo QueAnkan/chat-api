@@ -11,13 +11,6 @@ const db = await getDb()
 
 const secret = process.env.SECRET || 'M116610'
 
-//channel get: returnerar alla kanaler
-router.get('/', async (req, res) => {
-	await db.read()
-	let channels = db.data.channels
-	res.send(channels)
-})
-
 
 // Channel get:id hämta en kanal med hjälp av id
 router.get('/:chatid', async (req, res) => {
