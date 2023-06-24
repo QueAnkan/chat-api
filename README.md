@@ -10,10 +10,8 @@ Detta API används för att bygga en chat där man kan skicka medelanden till va
 |users |uname | sträng | användares namn |
 | |password | sträng | lösenord |
 | |userid | nummer | genererat användarid |
-|
 |channels|chatname | sträng | Namn på kanal |
 || public | boolean | Avgör public eller privat kanal |
-|
 |messages|content | sträng | Text input från användare |
 | |sender | nummer | userid på den användare som skickat meddelandet |
 || reciever | nummer | userid för den som tar emot meddelande vid DM |
