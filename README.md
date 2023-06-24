@@ -20,7 +20,8 @@ channels|chatname | sträng | Namn på kanal |
 || chat | nummer | chatid för den kanal som meddelandet skickas till om det inte är ett DM |
 | |timestamp | nummer | genererad tidsstämpel när meddelande laddas upp till API:et |
 | |messageid | nummer | genererat id för meddelande |
-|
+||||
+
 
 
 
