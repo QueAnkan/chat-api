@@ -76,7 +76,7 @@
     },
     {
       "content": "Hejsan",
-      "chat": 12,
+      "chat": 13,
       "sender": 1,
       "timestamp": 1686234002728,
       "messageid": 106
@@ -136,6 +136,13 @@
       "sender": 1,
       "timestamp": 1686822577916,
       "messageid": 118
+    },
+    {
+      "content": "Hejsan",
+      "sender": 3,
+      "reciever": 1,
+      "timestamp": 1687598150062,
+      "messageid": 119
     }
   ]
 }

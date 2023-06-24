@@ -4,16 +4,23 @@ import { isValidMessageChange, isValidMessage } from '../utils/messageValidators
 import {isValidId} from '../utils/validators.js'
 import generateTimestamp from '../utils/generateTimestamp.js'
 import { generateMessageId } from '../utils/generateId.js'
+import jwt from 'jsonwebtoken'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 const router = express.Router()
 const db = await getDb()
-
+const secret = process.env.SECRET || 'M116610'
 
 // Hämta meddelanden från en specifik kanal eller användare 
 router.get('/', async (req, res) => {
 	const {filterby, value} = req.query
 	const valueAsNumber = Number(value)
 	await db.read()
+
+	let channel = db.data.channels.find(
+		c => c.chatid === valueAsNumber)
+		console.log('channel', channel);
 
 		if( !valueAsNumber) {
 			res.sendStatus(400)
@@ -33,20 +40,99 @@ router.get('/', async (req, res) => {
 				return true;
 				} 
 			}
-			else if (filterby === 'sender') {
-				if (messages.sender === valueAsNumber){
+			else if (filterby === 'sender' ) {
+				if (messages.sender === valueAsNumber && !messages.chat){
 					return true
 				}
 			}
 			return false;
 		} 
 		let chatMessages = db.data.messages.filter(filterMessages);
+		console.log('chatMessages', chatMessages);
 			if(chatMessages.length === 0) {
 				res.sendStatus(404)
 				console.log('Channel or sender does not exist');
 				return
 			} 
-		res.send(chatMessages)
+
+			let responseSent = false;
+
+			for (let i = 0; i < chatMessages.length; i++){
+				let message = chatMessages[i];
+				if (chatMessages && filterby === 'sender'&& !message.chat ){
+					let authHeader = req.headers.authorization
+			console.log("authHeader", authHeader);
+			if( !authHeader){
+			res.status(403).send('Channel locked, you must be authenticated to use this channel.')
+			responseSent = true
+			break
+			
+			}
+			
+			let token = authHeader.replace ( 'Bearer ', '')
+	
+			try{
+				let decoded = jwt.verify(token, secret)
+				let userId = Number(decoded.userId)
+				console.log(decoded, decoded.userId);
+				let user = db.data.users.find( u => u.userid === userId)
+				console.log('user', user);
+				if (user){
+				res.sendStatus(200)
+				console.log(`User ${user.uname} is authenticated and has access to this private channel`);
+				}else{
+					res.status(404).send('User not found')
+					console.log('User not found');
+				}
+				
+				return
+			}
+			catch(error){
+			res.status(401).send('Token for authentication not valid in this GET-request')
+			console.log(error);
+			return
+			}
+				}
+			}
+			
+
+		if (!responseSent && chatMessages && channel.public === false){
+			let authHeader = req.headers.authorization
+		console.log("authHeader", authHeader);
+		if( !authHeader){
+		res.status(403).send('Channel locked, you must be authenticated to use this channel.')
+		console.log("Channel locked, you must be authenticated to use this channel.");
+		return
+		}
+		
+		let token = authHeader.replace ( 'Bearer ', '')
+
+		try{
+			let decoded = jwt.verify(token, secret)
+			let userId = Number(decoded.userId)
+			console.log(decoded, decoded.userId);
+			let user = db.data.users.find( u => u.userid === userId)
+			console.log('user', user);
+			if (user){
+			res.sendStatus(200)
+			console.log(`User ${user.uname} is authenticated and has access to this private channel`);
+			}else{
+				res.status(404).send('User not found')
+				console.log('User not found');
+			}
+			
+			return
+		}
+		catch(error){
+		res.status(401).send('Token for authentication not valid in this GET-request')
+		console.log(error);
+		return
+		}
+	}
+
+	if (!responseSent) {
+		res.send(chatMessages);
+	}
 		console.log('Messages recieved');
 })
 
