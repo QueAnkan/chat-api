@@ -39,7 +39,8 @@ router.post('/', async (req, res) => {
 	}
 
 	const hour = 60 * 60
-	const payload = { userId : match.id}
+	const payload = { userId : match.userid}
+	console.log(payload);
 	const options = {expiresIn: hour * 3}
 	let token = jwt.sign(payload, secret, options)
 	let tokenPackage = {token: token}
