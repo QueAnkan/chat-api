@@ -63,7 +63,7 @@ router.get('/', async (req, res) => {
 					let authHeader = req.headers.authorization
 			console.log("authHeader", authHeader);
 			if( !authHeader){
-			res.status(403).send('Channel locked, you must be authenticated to use this channel.')
+			res.status(403).send('You must be authenticated to use DM.')
 			responseSent = true
 			break
 			
@@ -79,7 +79,7 @@ router.get('/', async (req, res) => {
 				console.log('user', user);
 				if (user){
 				res.sendStatus(200)
-				console.log(`User ${user.uname} is authenticated and has access to this private channel`);
+				console.log(`User ${user.uname} is authenticated and has access to DM`);
 				}else{
 					res.status(404).send('User not found')
 					console.log('User not found');
