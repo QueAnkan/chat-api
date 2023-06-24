@@ -11,7 +11,7 @@ Detta API används för att bygga en chat där man kan skicka medelanden till va
 | |password | sträng | lösenord |
 | |userid | nummer | genererat användarid |
 |
-channels|chatname | sträng | Namn på kanal |
+|channels|chatname | sträng | Namn på kanal |
 || public | boolean | Avgör public eller privat kanal |
 |
 |messages|content | sträng | Text input från användare |
@@ -20,7 +20,7 @@ channels|chatname | sträng | Namn på kanal |
 || chat | nummer | chatid för den kanal som meddelandet skickas till om det inte är ett DM |
 | |timestamp | nummer | genererad tidsstämpel när meddelande laddas upp till API:et |
 | |messageid | nummer | genererat id för meddelande |
-||||
+|
 
 
 
